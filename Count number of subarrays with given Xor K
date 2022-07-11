@@ -1,0 +1,21 @@
+class Solution:
+    # @param A : list of integers
+    # @param B : integer
+    # @return an integer
+    def solve(self, A, B):
+        d={}
+        xor=0
+        count=0
+        for i in A:
+            xor=xor^i
+            if xor^B in d:
+                count+=d[xor^B]
+            if xor==B:
+                count+=1
+                
+            
+            if xor in d:
+                d[xor]+=1
+            else:
+                d[xor]=1
+        return count
