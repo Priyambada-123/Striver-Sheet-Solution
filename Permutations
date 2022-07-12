@@ -1,0 +1,21 @@
+def perm(nums,d,List,ds):
+    if len(ds)==len(nums):
+        List.append(ds.copy())
+        return 
+    for i in range(len(nums)):
+        if not d[i]:
+            ds.append(nums[i])
+            d[i]=1
+            perm(nums,d,List,ds)
+            d[i]=0
+            ds.pop()
+            
+    return List
+            
+class Solution:
+    def permute(self, nums: List[int]) -> List[List[int]]:
+        d=[0]*len(nums)
+        List=[]
+        
+        return perm(nums,d,List,[])
+    
