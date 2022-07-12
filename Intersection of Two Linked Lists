@@ -1,0 +1,29 @@
+class Solution:
+    def getIntersectionNode(self, headA: ListNode, headB: ListNode) -> Optional[ListNode]:
+        def count(head):
+            p=0
+            while head:
+                p+=1
+                head=head.next
+            return p
+      
+        l1=count(headA)
+        l2=count(headB)
+        if l1>=l2:
+            r=l1-l2
+            while r:
+                headA=headA.next
+                r-=1
+        else:
+            r=l2-l1
+            while r:
+                headB=headB.next
+                r-=1
+        while headA and headB:
+            
+            if headA.next==headB.next:
+                res=headA
+                return res
+            headA=headA.next
+            headB=headB.next
+        return -1
