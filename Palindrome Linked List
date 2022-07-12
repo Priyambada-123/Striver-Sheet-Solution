@@ -1,0 +1,31 @@
+class Solution:
+    def isPalindrome(self, head: Optional[ListNode]) -> bool:
+        def reverse(head):
+            if head==None or head.next==None:
+                return head
+            curr=head
+            prev=None
+            while curr:
+                mnext=curr.next
+                curr.next=prev
+                prev=curr
+                curr=mnext
+            return prev
+        if head== None or head.next==None:
+            return True
+        
+        fast=head
+        slow=head
+        while fast.next and fast.next.next:
+            slow=slow.next
+            fast=fast.next.next
+        
+        slow.next=reverse(slow.next)
+        p= slow.next
+        while p!=None:
+            if head.val!= p.val:
+                return False
+            head=head.next
+            p=p.next
+        return True
+                
