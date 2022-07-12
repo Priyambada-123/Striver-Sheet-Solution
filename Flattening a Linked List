@@ -1,0 +1,21 @@
+def flatten(root):
+    if root ==None or root.next==None:
+        return root
+    root.next = flatten(root.next)
+    root=merge(root,root.next)
+    return root
+
+def merge(a,b):
+    temp=Node(0)
+    res=temp
+    while (a!=None and b!=None):
+        if a.data<b.data:
+            temp.bottom=a
+            a=a.bottom
+            temp=temp.bottom
+        else:
+            temp.bottom=b
+            b=b.bottom
+            temp=temp.bottom
+    temp.bottom = a if(a!=None) else b
+    return res.bottom
