@@ -1,0 +1,27 @@
+class Solution:
+    def totalNQueens(self, n: int) -> int:
+        col=set()
+        res=[]
+        post=set()
+        neg=set()
+        board=[["."]*n for i in range(n)]
+        def bfs(r):
+            if r==n:
+                copy=["".join(re) for re in board]
+                res.append(copy)
+                return 
+            for i in range(n):
+                if i in col or (r+i) in post or (r-i) in neg:
+                    continue
+                col.add(i)
+                post.add(r+i)
+                neg.add(r-i)
+                board[r][i]="Q"
+                bfs(r+1)
+                col.remove(i)
+                post.remove(r+i)
+                neg.remove(r-i)
+                board[r][i]="."
+        bfs(0)
+        return len(res)
+                
