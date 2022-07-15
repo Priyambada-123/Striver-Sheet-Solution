@@ -1,0 +1,6 @@
+class Solution:
+    def removeDuplicates(self, nums: List[int]) -> int:
+        s=list(set(nums))
+        nums[:]=s[:]
+        nums.sort()
+        return len(s)
