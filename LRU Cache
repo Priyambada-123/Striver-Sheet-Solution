@@ -1,0 +1,29 @@
+class LRUCache:
+
+    def __init__(self, capacity: int):
+        self.cap = capacity
+        self.order = [] 
+        self.vals = {} 
+
+    def get(self, key: int) -> int:
+   
+        if key in self.vals:
+            self.order.remove(key) 
+            self.order.append(key) 
+            return self.vals[key]
+        return -1
+
+    def put(self, key: int, value: int) -> None:
+       
+        if key in self.vals: 
+            self.order.remove(key)
+            self.order.append(key)
+            self.vals[key] = value
+        elif len(self.order) == self.cap: 
+            self.vals.pop(self.order[0]) 
+            self.order.remove(self.order[0]) 
+            self.order.append(key) 
+            self.vals[key] = value
+        else: 
+            self.order.append(key)
+            self.vals[key] = value
