@@ -1,0 +1,42 @@
+class Solution:
+    def orangesRotting(self, grid: List[List[int]]) -> int:
+        visit, mins = set(), 0
+        fresh, rotten = self.build(grid, 1), self.build(grid, 2)
+        queue = self.buildDeque(rotten)
+        
+        while fresh:
+            if not queue:
+                return -1
+
+            cord, mins = queue.popleft()
+            x, y = cord
+            fresh.discard((x,y))
+               
+            if (x, y) in visit:continue
+            visit.add((x, y))
+            
+            dirs = [[0,1], [1,0], [-1,0], [0,-1]]
+            
+            for d in dirs:
+                r, c = x+d[0], y+d[1]
+                if r < 0 or r >= len(grid) or c < 0 or c >= len(grid[0]) or grid[r][c] == 0 or grid[r][c] == 2 or (r,c) in visit: continue
+                
+                queue.append([(r, c), mins+1])
+    
+        return mins
+            
+			
+    def buildDeque(self, rotten):
+        q = deque()
+        for n in rotten:
+            q.append([n, 0])
+        return q
+
+
+    def build(self, grid, val):
+        temp = set()
+        for i in range(len(grid)):
+            for j in range(len(grid[0])):
+                if grid[i][j] == val:
+                    temp.add((i,j))
+        return temp
