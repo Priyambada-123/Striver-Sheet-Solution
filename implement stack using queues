@@ -1,0 +1,54 @@
+from Queue import Queue
+class MyStack(object):
+
+    def __init__(self):
+        """
+        initialize your data structure here.
+        """
+        self.q1, self.q2 = Queue(), Queue()
+        return
+        
+
+    def push(self, x):
+        """
+        :type x: int
+        :rtype: None
+        """
+        self.q1.put(x)
+        return
+        
+
+    def pop(self):
+        """
+        :rtype: int
+        """
+        while self.q1.qsize() > 1:
+            x = self.q1.get()
+            self.q2.put(x)
+        if self.q1.qsize() == 1:
+            result = self.q1.get()
+            self.q1, self.q2 = self.q2, self.q1
+            return result
+        
+
+    def top(self):
+        """
+        :rtype: int
+        """
+        while self.q1.qsize() > 1:
+            x = self.q1.get()
+            self.q2.put(x)
+        if self.q1.qsize() == 1:
+            result = self.q1.get()
+            self.q2.put(result)
+            self.q1, self.q2 = self.q2, self.q1
+            return result        
+
+        
+
+    def empty(self):
+        """
+        :rtype: bool
+        """
+        return not bool(self.q1.qsize() + self.q2.qsize())
+        
