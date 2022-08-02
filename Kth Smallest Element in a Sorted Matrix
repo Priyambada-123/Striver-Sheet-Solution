@@ -1,0 +1,33 @@
+class Solution(object):
+    def kthSmallest(self, matrix, k):
+        """
+        :type matrix: List[List[int]]
+        :type k: int
+        :rtype: int
+        """
+        n = len(matrix)
+        high = matrix[n-1][n-1]
+        low = matrix[0][0]
+        while low<=high:
+            mid = low + (high - low) /2
+            count = self.check_value(matrix,mid)
+            if count< k:
+                low = mid+1
+            else :
+                high = mid-1
+        return int(low)
+    def check_value(self, matrix, value):
+        i = 0
+        j = len(matrix[0])-1
+        counter = 0
+        while(i<len(matrix) and j >=0):
+            if matrix[i][j] > value:
+                j-=1
+            else:
+                counter+=j+1
+                i+=1
+        return counter
+    matrix = [[1,5,9],[10,11,13],[12,13,15]]
+    ob = object()
+
+        
